@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import UserInput from './UserInput/UserInput';
+import UserOutput from './UserOutput/UserOutput';
+import BtnToogle from './BtnToogle/BtnToogle';
 import './App.css';
 
-function App() {
+const App = () => {
+  
+  const userInterface = { userName: 'Name to update' };
+  const inputInterface = { inputMsj: 'Empty input data...' };
+  const btnInterface = { toogle: false };
+
+  const [userState, setUserState] = useState(userInterface);
+  // eslint-disable-next-line
+  const [inputState, setInputState] = useState(inputInterface);
+  const [btnState, setBtnState] = useState(btnInterface);
+
+  const updateUserState = (e) => {
+    setUserState({ userName: e.target.value })
+  };
+  const updateBtnState = () => {
+    const btnToogle = btnState.toogle;
+    setBtnState({ toogle: !btnToogle });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="container">
+      <UserInput  updateUserSt={updateUserState}
+                  initialData={inputState.inputMsj}/>
+      
+      <UserOutput user={userState.userName}/>
+      
+      <BtnToogle  updateBtnSt={updateBtnState}
+                  toogle={btnState.toogle}
+      />  
+    </div> 
   );
+
 }
 
 export default App;

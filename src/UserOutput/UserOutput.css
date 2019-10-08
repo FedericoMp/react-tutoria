@@ -1,0 +1,6 @@
+.copy {
+    display: flex;
+    align-self: flex-start;
+    max-width: 173px;
+    font-style: italic;
+}
