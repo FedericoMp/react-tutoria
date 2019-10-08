@@ -5,21 +5,27 @@ const BtnToogle = (props) => {
     const trueContainer = Object.assign({ background: 'green', color: 'white' }, mainContainer);
     const falseContainer = Object.assign({ background: 'red', color: 'white' }, mainContainer);
 
+    let toogle;
+    let toogleVal = props.toogle ? 'true' : 'false';
+    (props.toogle)
+    ?   toogle = (
+                  <span style={trueContainer}>
+                    value:  { toogleVal } 
+                  </span>
+                 )
+    :   toogle = (
+                    <span style={falseContainer}>
+                        value:  { toogleVal } 
+                    </span>
+                 );
+
     return (
         <div style={mainContainer}>
             <button
                 style={mainContainer} 
                 onClick={props.updateBtnSt}>
-                Toogle: {props.toogle}</button>
-            { props.toogle ?
-                <span style={trueContainer}>
-                    value: true
-                </span>
-                :
-                <span style={falseContainer}>
-                    value: false
-                </span>
-            }
+                Toogle: { toogleVal }</button>
+            { toogle }
         </div>
     );
 };

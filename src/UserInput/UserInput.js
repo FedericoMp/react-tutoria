@@ -2,6 +2,7 @@ import React from 'react';
 import './UserInput.css';
 
 const UserInput = (props) => {
+
     return(
         <React.Fragment>
             <input 
@@ -14,6 +15,7 @@ const UserInput = (props) => {
                 />
         </React.Fragment>
     );
+    
 };
 
 export default UserInput;
