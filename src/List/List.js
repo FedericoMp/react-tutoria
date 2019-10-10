@@ -6,14 +6,14 @@ const List = (props) => {
     let item = [];
     if (props.users.length > 0) {
         props.users.map(
-            user => {
-                item.push(<ListItem key={user.id} name={user.name}/>);
+            (user, index) => {
+                item.push(<ListItem key={index} name={user.name} delIt={() => props.deleteItem(user.id)}/>);
                 return item;
             }
         );
     }
     return (
-        <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', width:'100%', marginTop:10 }}>
+        <div style={{ display:  'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', width:'100%', marginTop:10 }}>
             { item }
         </div>
     );

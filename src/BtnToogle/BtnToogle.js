@@ -2,29 +2,22 @@ import React from 'react';
 
 const BtnToogle = (props) => {
     const mainContainer = { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' };
-    const trueContainer = Object.assign({ background: 'green', color: 'white' }, mainContainer);
-    const falseContainer = Object.assign({ background: 'red', color: 'white' }, mainContainer);
+    const trueContainer = Object.assign({ background: 'green', color: 'white', height: 5 }, mainContainer);
+    const falseContainer = Object.assign({ background: 'red', color: 'white', height: 5 }, mainContainer);
 
     let toogle;
-    let toogleVal = props.toogle ? 'true' : 'false';
+    let hideVal = props.toogle ? 'Display list' : 'Hidden list';
+    
     (props.toogle)
-    ?   toogle = (
-                  <span style={trueContainer}>
-                    value:  { toogleVal } 
-                  </span>
-                 )
-    :   toogle = (
-                    <span style={falseContainer}>
-                        value:  { toogleVal } 
-                    </span>
-                 );
+    ?   toogle = <span style={trueContainer}></span>
+    :   toogle = <span style={falseContainer}></span>;
 
     return (
         <div style={mainContainer}>
             <button
                 style={mainContainer} 
                 onClick={props.updateBtnSt}>
-                Toogle: { toogleVal }</button>
+                { hideVal }</button>
             { toogle }
         </div>
     );
