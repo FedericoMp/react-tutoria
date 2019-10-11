@@ -17,8 +17,13 @@ class App extends Component {
         { id: '1_asd', name: 'Tester 1' },
         { id: '2_qwe', name: 'Tester 2' },
         { id: '3_zxc', name: 'Tester 3' },
-      ]
+      ],
+      clicker: 'Hello clicker :)',
+      toogleClick: false
     };
+    // esto es mejor que bindear o arrow en render(), porque el constructor se ejecuta una vez
+    // otro approach seria utilizar arrow function como propiedad de la clase, de esta forma esto queda omitido
+    // this.clickHandler = this.clickHandler.bind(this);
   }
 
   updateUserState = (e) => {
@@ -49,13 +54,23 @@ class App extends Component {
     }
   }
 
+  // definir una arrow function como propiedad de la clase
+  clickHandler = () => {
+    const clickState = !this.state.toogleClick;
+    this.setState({toogleClick: clickState});
+    const newClicker = 'Good Bye clicker :)';
+    clickState
+      ? this.setState({clicker:newClicker})
+      : this.setState({clicker:'Hello clicker :)'});
+  }
+
   render () {
 
     let listItem = null;
     if(this.state.toogle === true) 
         listItem = (<List users={this.state.users}
                           deleteItem={(index) => {this.deleteItem(index)}}/>);
-         
+
       return (
         <div className="container">
           <UserInput  updateUserSt={this.updateUserState}
@@ -67,6 +82,21 @@ class App extends Component {
                       toogle={this.state.toogle}/>  
 
           { listItem }
+          
+          <hr style={{ width: '100%', margin: '20px 0' }}/>
+          
+          <span>{this.state.clicker}</span>
+          {/* 
+            Para bindear eventos: 
+            onClick={this.clickHandler()} -> da error, porque no esta la referencia de 'this'
+            Se puede solucionar con:
+            - onClick={this.clickHandler.bind(this)} -> metodo: .bind()
+            - onClick={() => this.clickHandler()} -> arrow function: () => {} 
+            - en el constructor definir una propiedad y usar bind
+              constructor() { this.clickHandler = this.clickHandler.bind(this) };
+              onClick={this.clickHandler} -> arrow function: () => {} 
+          */}
+          <button style={{ width: '100%', marginTop: 10 }} onClick={this.clickHandler}>Click</button>
         </div> 
       );
   }
