@@ -3,12 +3,14 @@ import UserInput from './UserInput/UserInput';
 import UserOutput from './UserOutput/UserOutput';
 import BtnToogle from './BtnToogle/BtnToogle';
 import List from './List/List';
+import Separator from './Separator/Separator';
 import './App.css';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
+    console.info('[App.js] constructor');
     this.state = {
       userName: 'Name to update' ,
       inputMsj: 'Empty input data...',
@@ -55,6 +57,9 @@ class App extends Component {
   }
 
   // definir una arrow function como propiedad de la clase
+  // si se genera un metodo, no se podria utilizar 'this'
+  // tendria que utilizarse .bind() u arrow func. en render
+  // pero esto es otro approach
   clickHandler = () => {
     const clickState = !this.state.toogleClick;
     this.setState({toogleClick: clickState});
@@ -64,8 +69,13 @@ class App extends Component {
       : this.setState({clicker:'Hello clicker :)'});
   }
 
-  render () {
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps()', props);
+    return state;
+  }
 
+  render () {
+    console.log('[App.js] render()');
     let listItem = null;
     if(this.state.toogle === true) 
         listItem = (<List users={this.state.users}
@@ -73,34 +83,46 @@ class App extends Component {
 
       return (
         <div className="container">
-          <UserInput  updateUserSt={this.updateUserState}
-                      initialData={this.state.inputMsj}/>
+          <img src={this.props.hero}
+               alt={this.props.title}
+               height="40"
+               width="40"
+               />
+          <h3 style={{margin: '5px 0'}}>{this.props.title}</h3>
           
-          <UserOutput user={this.state.userName}/>
-          
-          <BtnToogle  updateBtnSt={() => this.updateBtnState()}
-                      toogle={this.state.toogle}/>  
+          <Separator/>{/* //////////////////////////////////// */}
+            
+            <UserInput  updateUserSt={this.updateUserState}
+                        initialData={this.state.inputMsj}/>
+            <UserOutput user={this.state.userName}/>
 
-          { listItem }
+          <Separator/>{/* //////////////////////////////////// */}
+            
+            <BtnToogle  updateBtnSt={() => this.updateBtnState()}
+                        toogle={this.state.toogle}/>  
+            { listItem }
+            
+          <Separator/>{/* //////////////////////////////////// */}
           
-          <hr style={{ width: '100%', margin: '20px 0' }}/>
-          
-          <span>{this.state.clicker}</span>
-          {/* 
-            Para bindear eventos: 
-            onClick={this.clickHandler()} -> da error, porque no esta la referencia de 'this'
-            Se puede solucionar con:
-            - onClick={this.clickHandler.bind(this)} -> metodo: .bind()
-            - onClick={() => this.clickHandler()} -> arrow function: () => {} 
-            - en el constructor definir una propiedad y usar bind
-              constructor() { this.clickHandler = this.clickHandler.bind(this) };
-              onClick={this.clickHandler} -> arrow function: () => {} 
-          */}
-          <button style={{ width: '100%', marginTop: 10 }} onClick={this.clickHandler}>Click</button>
+            <span>{this.state.clicker}</span>
+            {/* 
+              Para bindear eventos: 
+              onClick={this.clickHandler()} -> da error, porque no esta la referencia de 'this'
+              Se puede solucionar con:
+              - onClick={this.clickHandler.bind(this)} -> metodo: .bind()
+              - onClick={() => this.clickHandler()} -> arrow function: () => {} 
+              - en el constructor definir una propiedad y usar bind
+                constructor() { this.clickHandler = this.clickHandler.bind(this) };
+                onClick={this.clickHandler} -> arrow function: () => {} 
+            */}
+            <button style={{ width: '100%', marginTop: 10 }} onClick={this.clickHandler}>Click</button>
         </div> 
       );
   }
 
+  componentDidMount() {
+    console.log('[App.js] componentDidMount()');
+  }
 }
 
 export default App;

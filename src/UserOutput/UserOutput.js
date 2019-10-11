@@ -2,6 +2,7 @@ import React from 'react';
 import './UserOutput.css';
 
 const UserOutput = (props) => {
+    console.log('[UserOutput.js] render UserOutput component');
 
     return(
         <React.Fragment>

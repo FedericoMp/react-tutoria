@@ -1,6 +1,8 @@
 import React from 'react';
 
 const BtnToogle = (props) => {
+    console.log('[BtnToogle.js] render BtnToogle component');
+
     const mainContainer = { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' };
     const trueContainer = Object.assign({ background: 'green', color: 'white', height: 5 }, mainContainer);
     const falseContainer = Object.assign({ background: 'red', color: 'white', height: 5 }, mainContainer);

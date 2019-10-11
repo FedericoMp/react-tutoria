@@ -3,6 +3,7 @@ import './UserInput.css';
 
 const UserInput = (props) => {
 
+    console.log('[UserInput.js] render UserInput component');
     return(
         <input 
             type="text"

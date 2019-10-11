@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from '../ListItem/ListItem';
 
 const List = (props) => {
-
+    console.log('[List.js] render List component');
     let item = [];
     if (props.users.length > 0) {
         props.users.map(
